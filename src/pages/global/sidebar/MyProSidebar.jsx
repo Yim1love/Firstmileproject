@@ -307,6 +307,20 @@ const MyProSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             /> 
+            <Item
+              title="Testcard"
+              to="/testcard"
+              icon={<BsGear/>}
+              selected={selected}
+              setSelected={setSelected}
+            /> 
+            <Item
+              title="Testmaps"
+              to="/testmaps"
+              icon={<BsGear/>}
+              selected={selected}
+              setSelected={setSelected}
+            /> 
 
             <Typography
               variant="h6"

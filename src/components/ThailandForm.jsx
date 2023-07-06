@@ -3,12 +3,27 @@ import $ from 'jquery';
 
 const ThailandForm = () => {
   useEffect(() => {
-    $.Thailand({
-      $district: $('#sub_district'),
-      $amphoe: $('#district'),
-      $province: $('#province'),
-      $zipcode: $('#postcode'),
-    });
+    const loadThailandPlugin = async () => {
+      // โหลดและใช้งาน JQL
+      const JQL = await import('https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/JQL.min.js');
+      window.JQL = JQL.default;
+
+      // โหลดและใช้งาน typeahead.bundle.js
+      const typeaheadBundle = await import('https://earthchie.github.io/jquery.Thailand.js/jquery.Thailand.js/dependencies/typeahead.bundle.js');
+      window.Bloodhound = typeaheadBundle.default.Bloodhound;
+
+     
+
+      // ใช้งาน jQuery Thailand plugin
+      window.Thailand({
+        $district: $('#sub_district'),
+        $amphoe: $('#district'),
+        $province: $('#province'),
+        $zipcode: $('#postcode'),
+      });
+    };
+
+    loadThailandPlugin();
   }, []);
 
   return (

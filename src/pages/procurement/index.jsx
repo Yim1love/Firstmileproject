@@ -9,7 +9,6 @@ import {
 
 import React, { useState } from "react";
 
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -21,27 +20,41 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Testcard from "../testgridcard/index";
+import Testcard2 from "../testgridcard/index2";
+import MapDialog from "../testmaps/mapdialog";
 
-
-
-
-
-
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 function Procurement() {
   const [scoretell, setScoretell] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [inputAdress, setInputAdress] = useState("");
-  const [inputVillageNumber,setInputVillageNumber] = useState("");
-  const [inputVillage,setInputVillage] = useState("");
-  const[inputSoi,setInputSoi]= useState("");
-  const[inputRoad,setInputRoad] = useState("");
-  const[inputProvince,setInputProvince] = useState("");
-  const[inputDistrict ,setInputDistrict ] = useState("");
-  const[inputSubdistrict,setInputSubdistrict] = useState("");
-  const[inputPostCode,setInputPostCode] = useState("");
+  const [inputVillageNumber, setInputVillageNumber] = useState("");
+  const [inputVillage, setInputVillage] = useState("");
+  const [inputSoi, setInputSoi] = useState("");
+  const [inputRoad, setInputRoad] = useState("");
+  const [inputProvince, setInputProvince] = useState("");
+  const [inputDistrict, setInputDistrict] = useState("");
+  const [inputSubdistrict, setInputSubdistrict] = useState("");
+  const [inputPostCode, setInputPostCode] = useState("");
+  const [inputPosition1, setInputPosition1] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   //ใบกำกับภาษี
+  const [putIdcard, setPutIdcard] = useState("");
+  const [putAddress, setPutAddress] = useState("");
+  const [putVillageNumber, setPutVillageNumber] = useState("");
+  const [putVillage, setPutVillage] = useState("");
+  const [putSoi, setPutSoi] = useState("");
+  const [putRoad, setPutRoad] = useState("");
+  const [putProvince, setPutProvince] = useState("");
+  const [putDistrict, setPutDistrict] = useState("");
+  const [putSubdistrict, setPutSubdistrict] = useState("");
+  const [putPostCode, setPutPostCode] = useState("");
+
+  const [inputPosition, setInputPosition] = useState("");
   
   
 
@@ -52,9 +65,12 @@ function Procurement() {
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
-
-
   
+  
+
+
+  //ในการติดต่อ
+
   return (
     <Grid container justifyContent="center">
       <Grid sx={{ margin: 0 }}>
@@ -248,34 +264,31 @@ function Procurement() {
               >
                 บ้านเลขที่
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputAdress}
+                onChange={(event) => setInputAdress(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "8.79%",
                   right: "80.77%",
                   top: "46.1%",
                   bottom: "44.02%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
-                }}
-              >
-                <input
-                  id="house-number"
-                  name="house-number"
-                  value={inputAdress}
-                  onChange={(event) => setInputAdress(event.target.value)}
-                  style={{
+                  "& .MuiInputBase-input": {
                     width: "100%",
                     height: "100%",
                     border: "none",
                     outline: "none",
-                    padding: "8px",
+                    padding: "7px",
                     boxSizing: "border-box",
-                  }}
-                />
-              </Box>
+                  },
+                }}
+              />
             </Box>
           </>
           <>
@@ -296,33 +309,31 @@ function Procurement() {
               >
                 หมู่ที่
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputVillageNumber}
+                onChange={(event) => setInputVillageNumber(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "20.28%",
                   right: "69.28%",
                   top: "46.1%",
                   bottom: "44.02%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="VillageNumber"
-              name="VillageNumber"
-              value={inputVillageNumber}
-              onChange={(event) => setInputVillageNumber(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -344,33 +355,31 @@ function Procurement() {
               >
                 หมู่บ้าน/อาคาร
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputVillage}
+                onChange={(event) => setInputVillage(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "31.87%",
                   right: "46.15%",
                   top: "46.1%",
                   bottom: "44.02%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="Village"
-              name="Village"
-              value={inputVillage}
-              onChange={(event) => setInputVillage(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -392,33 +401,31 @@ function Procurement() {
               >
                 ซอย
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputSoi}
+                onChange={(event) => setInputSoi(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "54.95%",
                   right: "23.08%",
                   top: "46.1%",
                   bottom: "44.02%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="Soi"
-              name="Soi"
-              value={inputSoi}
-              onChange={(event) => setInputSoi(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -440,33 +447,31 @@ function Procurement() {
               >
                 ถนน
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputRoad}
+                onChange={(event) => setInputRoad(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "78.02%",
                   right: "1%",
                   top: "46.1%",
                   bottom: "44.02%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="Road"
-              name="Road"
-              value={inputRoad}
-              onChange={(event) => setInputRoad(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -488,33 +493,31 @@ function Procurement() {
               >
                 จังหวัด
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputProvince}
+                onChange={(event) => setInputProvince(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "8.79%",
                   right: "69.23%",
                   top: "65.2%",
                   bottom: "24.59%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="Province"
-              name="Province"
-              value={inputProvince}
-              onChange={(event) => setInputProvince(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -536,33 +539,31 @@ function Procurement() {
               >
                 อำเภอ/เขต
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputDistrict}
+                onChange={(event) => setInputDistrict(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "31.87%",
                   right: "46.15%",
                   top: "65.2%",
                   bottom: "24.59%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="District"
-              name="District"
-              value={inputDistrict}
-              onChange={(event) => setInputDistrict(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -584,33 +585,31 @@ function Procurement() {
               >
                 ตำบล/แขวง
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputSubdistrict}
+                onChange={(event) => setInputSubdistrict(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "54.95%",
                   right: "23.08%",
                   top: "65.2%",
                   bottom: "24.59%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="Subdistrict"
-              name="Subdistrict"
-              value={inputSubdistrict}
-              onChange={(event) => setInputSubdistrict(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -632,33 +631,31 @@ function Procurement() {
               >
                 รหัสไปรษณีย์
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputPostCode}
+                onChange={(event) => setInputPostCode(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "78.02%",
                   right: "1%",
                   top: "65.2%",
                   bottom: "24.59%",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ><input
-              id="PostCode"
-              name="PostCode"
-              value={inputPostCode}
-              onChange={(event) => setInputPostCode(event.target.value)}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
-            />
-            </Box>
+              />
             </Box>
           </>
           <>
@@ -680,19 +677,44 @@ function Procurement() {
               >
                 ตำแหน่ง
               </Typography>
-              <Box
-                sx={{
-                  boxSizing: "border-box",
-                  position: "absolute",
-                  left: "8.79%",
-                  right: "59.85%",
-                  top: "85.28%",
-                  bottom: "4.61%",
-                  background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
-                  borderRadius: "2px",
-                }}
-              ></Box>
+             
+                
+                <TextField
+                  id="demo-helper-text-aligned-no-helper"
+                  label=""
+                  placeholder=""
+                  value={inputPosition1}
+                  onChange={(event) => setInputPosition1(event.target.value)}
+                  sx={{
+                    position: "absolute",
+                    left: "8.79%",
+                    right: "59.85%",
+                    top: "85.28%",
+                    bottom: "4.61%",
+                    background: "#FFFFFF",
+                    borderRadius: "2px",
+                    "& .MuiInputBase-input": {
+                      width: "100%",
+                      height: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "7px",
+                      boxSizing: "border-box",
+                    },
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <React.Fragment>
+                        <MapDialog/>
+                      </React.Fragment>
+                    ),
+                  }}
+                />
+                
+               
+                
+
+              
             </Box>
           </>
 
@@ -755,9 +777,13 @@ function Procurement() {
               >
                 เลขประจำตัวผู้เสียภาษี/เลขบัตรประชาชน
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putIdcard}
+                onChange={(event) => setPutIdcard(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "8.81%",
                   right: "64.77%",
@@ -765,11 +791,19 @@ function Procurement() {
                   width: "240px",
                   height: "30px",
                   bottom: "71%",
-                  background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+                  background: "#FFFF",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -791,9 +825,13 @@ function Procurement() {
               >
                 บ้านเลขที่
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putAddress}
+                onChange={(event) => setPutAddress(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "8.81%",
                   right: "80.73%",
@@ -802,10 +840,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -819,7 +865,6 @@ function Procurement() {
                   bottom: "49.46%",
                   fontFamily: "'Inter'",
                   fontStyle: "normal",
-
                   fontSize: "12px",
                   marginBottom: "6px",
                   color: "#6A6969",
@@ -827,9 +872,13 @@ function Procurement() {
               >
                 หมู่ที่
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putVillageNumber}
+                onChange={(event) => setPutVillageNumber(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "20.32%",
                   right: "69.22%",
@@ -838,10 +887,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -863,9 +920,13 @@ function Procurement() {
               >
                 หมู่บ้าน/อาคาร
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putVillage}
+                onChange={(event) => setPutVillage(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "31.93%",
                   right: "46.05%",
@@ -874,10 +935,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -899,21 +968,32 @@ function Procurement() {
               >
                 ซอย
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putSoi}
+                onChange={(event) => setPutSoi(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "55.05%",
                   right: "22.93%",
                   top: "30.08%",
                   bottom: "32%",
-                  // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -935,21 +1015,33 @@ function Procurement() {
               >
                 ถนน
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putRoad}
+                onChange={(event) => setPutRoad(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "77.95%",
                   right: "1%",
                   top: "30.08%",
                   bottom: "32%",
-                  // width: "95px",
+
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -971,9 +1063,13 @@ function Procurement() {
               >
                 จังหวัด
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putProvince}
+                onChange={(event) => setPutProvince(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "8.81%",
                   right: "69.17%",
@@ -982,10 +1078,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -1007,9 +1111,13 @@ function Procurement() {
               >
                 อำเภอ/เขต
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putDistrict}
+                onChange={(event) => setPutDistrict(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "31.93%",
                   right: "46.05%",
@@ -1018,10 +1126,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -1043,9 +1159,13 @@ function Procurement() {
               >
                 ตำบล/แขวง
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putSubdistrict}
+                onChange={(event) => setPutSubdistrict(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "55.05%",
                   right: "22.93%",
@@ -1054,10 +1174,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <>
@@ -1079,9 +1207,13 @@ function Procurement() {
               >
                 รหัสไปรษณีย์
               </Typography>
-              <Box
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={putPostCode}
+                onChange={(event) => setPutPostCode(event.target.value)}
                 sx={{
-                  boxSizing: "border-box",
                   position: "absolute",
                   left: "78.06%",
                   right: "1%",
@@ -1090,10 +1222,18 @@ function Procurement() {
                   // width: "95px",
                   height: "35px",
                   background: "#FFFFFF",
-                  border: "1px solid #CBCBCB",
+
                   borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
                 }}
-              ></Box>
+              />
             </Box>
           </>
           <Typography
@@ -1223,6 +1363,7 @@ function Procurement() {
           </>
         </Container>
         <Container
+          className="add การติดต่อ"
           sx={{
             boxSizing: "border-box",
             position: "absolute",
@@ -1237,7 +1378,9 @@ function Procurement() {
             border: "1px solid #D9D9D9",
           }}
         >
-          <Box>
+          <Typography>การติดต่อ</Typography>
+          <Testcard />
+          {/* <Box>
             <Grid
               container
               direction="row"
@@ -1509,10 +1652,11 @@ function Procurement() {
                 </Grid>
               </Grid>
             </Grid>
-          </Box>
+          </Box> */}
         </Container>
 
         <Container
+          className="บัญชี add"
           sx={{
             boxSizing: "border-box",
             position: "absolute",
@@ -1526,14 +1670,12 @@ function Procurement() {
             border: "1px solid #D9D9D9",
           }}
         >
-        
+          <Typography>การจ่ายเงิน</Typography>
+          <Testcard2 />
         </Container>
       </Grid>
-      
     </Grid>
-    
   );
 }
-
 
 export default Procurement;
