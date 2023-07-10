@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   Typography,
   Container,
@@ -24,7 +25,8 @@ import Testcard from "../testgridcard/index";
 import Testcard2 from "../testgridcard/index2";
 import MapDialog from "../testmaps/mapdialog";
 
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import Validateid from "../../components/Validateid";
 
 function Procurement() {
   const [scoretell, setScoretell] = useState("");
@@ -55,8 +57,6 @@ function Procurement() {
   const [putPostCode, setPutPostCode] = useState("");
 
   const [inputPosition, setInputPosition] = useState("");
-  
-  
 
   const handleScoretellChange = (event) => {
     setScoretell(event.target.value);
@@ -65,9 +65,102 @@ function Procurement() {
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
-  
-  
 
+  // import axios file
+
+  const axios = require("axios");
+  const apiUrl = "http://192.168.1.102:8100/api/v1/vendor";
+  const handlePostData = () => {
+    const vendorData = {
+      vendorType: "บุคคลธรรมดา",
+      type: "ร้านค้า",
+      name: "Data2",
+      currentAddress: {
+        houseNumber: "inputAdress",
+        moo: "inputVillageNumber",
+        buildings: "inputVillage",
+        soi: "inputSoi",
+        street: "inputRoad",
+        subDistrict: "inputSubdistrict",
+        district: "inputDistrict",
+        province: "inputProvince",
+        location: {
+          latitude: "string",
+          longitude: "string",
+        },
+        postcode: "inputPostCode",
+      },
+      taxId: "string",
+      taxIdAddress: {
+        houseNumber: "string",
+        moo: "string",
+        buildings: "string",
+        soi: "string",
+        street: "string",
+        subDistrict: "string",
+        district: "string",
+        province: "string",
+        location: {
+          latitude: "string",
+          longitude: "string",
+        },
+        postcode: "string",
+      },
+      contact: [
+        {
+          firstname: "string",
+          lastname: "string",
+          position: "string",
+          agency: "string",
+          lindId: "string",
+          telephone1: "string",
+          telephone2: "string",
+          email1: "string",
+          email2: "string",
+          score: 0,
+        },
+      ],
+      certificateList: [
+        {
+          title: null,
+          data: null,
+        },
+      ],
+      pp20List: [
+        {
+          title: null,
+          data: null,
+        },
+      ],
+      personalIdList: [
+        {
+          title: null,
+          data: null,
+        },
+      ],
+      bankAccountList: [
+        {
+          bankName: "string",
+          bankId: "string",
+          branchName: "string",
+          accountName: "string",
+        },
+      ],
+      by: {
+        userId: "string",
+        username: "string",
+        modifyAt: "string",
+      },
+    };
+    axios
+      .post(apiUrl, vendorData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   //ในการติดต่อ
 
@@ -677,44 +770,38 @@ function Procurement() {
               >
                 ตำแหน่ง
               </Typography>
-             
-                
-                <TextField
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  placeholder=""
-                  value={inputPosition1}
-                  onChange={(event) => setInputPosition1(event.target.value)}
-                  sx={{
-                    position: "absolute",
-                    left: "8.79%",
-                    right: "59.85%",
-                    top: "85.28%",
-                    bottom: "4.61%",
-                    background: "#FFFFFF",
-                    borderRadius: "2px",
-                    "& .MuiInputBase-input": {
-                      width: "100%",
-                      height: "100%",
-                      border: "none",
-                      outline: "none",
-                      padding: "7px",
-                      boxSizing: "border-box",
-                    },
-                  }}
-                  InputProps={{
-                    endAdornment: (
-                      <React.Fragment>
-                        <MapDialog/>
-                      </React.Fragment>
-                    ),
-                  }}
-                />
-                
-               
-                
 
-              
+              <TextField
+                id="demo-helper-text-aligned-no-helper"
+                label=""
+                placeholder=""
+                value={inputPosition1}
+                onChange={(event) => setInputPosition1(event.target.value)}
+                sx={{
+                  position: "absolute",
+                  left: "8.79%",
+                  right: "59.85%",
+                  top: "85.28%",
+                  bottom: "4.61%",
+                  background: "#FFFFFF",
+                  borderRadius: "2px",
+                  "& .MuiInputBase-input": {
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                    outline: "none",
+                    padding: "7px",
+                    boxSizing: "border-box",
+                  },
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <React.Fragment>
+                      <MapDialog />
+                    </React.Fragment>
+                  ),
+                }}
+              />
             </Box>
           </>
 
@@ -777,7 +864,8 @@ function Procurement() {
               >
                 เลขประจำตัวผู้เสียภาษี/เลขบัตรประชาชน
               </Typography>
-              <TextField
+              <Validateid />
+              {/* <TextField
                 id="demo-helper-text-aligned-no-helper"
                 label=""
                 placeholder=""
@@ -803,7 +891,7 @@ function Procurement() {
                     boxSizing: "border-box",
                   },
                 }}
-              />
+              /> */}
             </Box>
           </>
           <>

@@ -306,6 +306,7 @@ export default function Sidenav() {
                   px: 2.5,
                 }}
               >
+                
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -338,10 +339,33 @@ export default function Sidenav() {
                 <ListItemText primary="เกี่ยวกับโปรแกรม" />
               </ListItemButton>
             </ListItem>
+            
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {menudata == "Account" && <Account/>}
+      <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Compensabatur, inquit, cum summis doloribus laetitia. Illa tamen simplicia, vestra versuta. Ac tamen hic mallet non dolere. Quid de Pythagora?
+
+Duo Reges: constructio interrete. Ac tamen hic mallet non dolere. Non quam nostram quidem, inquit Pomponius iocans;
+
+Aliter autem vobis placet. Sic enim censent, oportunitatis esse beate vivere. 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Compensabatur, inquit, cum summis doloribus laetitia. Illa tamen simplicia, vestra versuta. Ac tamen hic mallet non dolere. Quid de Pythagora?
+
+Duo Reges: constructio interrete. Ac tamen hic mallet non dolere. Non quam nostram quidem, inquit Pomponius iocans;
+
+Aliter autem vobis placet. Sic enim censent, oportunitatis esse beate vivere. P
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Compensabatur, inquit, cum summis doloribus laetitia. Illa tamen simplicia, vestra versuta. Ac tamen hic mallet non dolere. Quid de Pythagora?
+
+Duo Reges: constructio interrete. Ac tamen hic mallet non dolere. Non quam nostram quidem, inquit Pomponius iocans;
+
+Aliter autem vobis placet. Sic enim censent, oportunitatis esse beate vivere. P
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi enim satis est, ipsis non satis. Compensabatur, inquit, cum summis doloribus laetitia. Illa tamen simplicia, vestra versuta. Ac tamen hic mallet non dolere. Quid de Pythagora?
+
+Duo Reges: constructio interrete. Ac tamen hic mallet non dolere. Non quam nostram quidem, inquit Pomponius iocans;
+
+Aliter autem vobis placet. Sic enim censent, oportunitatis esse beate vivere. PsPrioris generis est docilitas, memoria; At miser, si in flagitiosa et vitiosa vita afflueret voluptatibus. Quis Aristidem non mortuum diligit? Quid ergo?
+                </Typography>
       </Box>
+      
     </Box>
   );
 }

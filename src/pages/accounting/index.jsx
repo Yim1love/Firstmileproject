@@ -1,8 +1,12 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
+import Validateid from "../../components/Validateid";
+
+
 
 function Accounting() {
   return (
+    <Box>
     <Typography
       variant="h1"
       sx={{
@@ -11,6 +15,9 @@ function Accounting() {
     >
       Accouting
     </Typography>
+    <Validateid/>
+    </Box>
+    
   );
 }
 
