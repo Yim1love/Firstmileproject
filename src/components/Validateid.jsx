@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import "./Component.css";
 
-
 function Validateid() {
   const [id, setId] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -56,25 +55,25 @@ function Validateid() {
             error={id.trim() !== "" && id.length !== 13}
             helperText={
               <React.Fragment>
-  <span className={isValid ? "success" : ""}>
-    {isValid ? "เลขบัตรถูกต้อง" : ""}
-  </span>
-  <span
-    className={`error ${
-      id.trim() !== "" && id.length !== 13 ? "" : ""
-    }`}
-    style={{
-      backgroundColor:
-        id.trim() !== "" && id.length !== 13 ? "" : "initial",
-      color: !isValid && id.trim() !== "" ? "red" : "initial",
-    }}
-  >
-    {!isValid && id.trim() !== "" ? "เลขบัตรผิด" : ""}
-    {id.trim() !== "" && id.length !== 13
-      ? "กรอกตัวเลขไม่ครบ 13 หลัก"
-      : ""}
-  </span>
-</React.Fragment>
+                <span className={isValid ? "success" : ""}>
+                  {isValid ? "เลขบัตรถูกต้อง" : ""}
+                </span>
+                <span
+                  className={`error ${
+                    id.trim() !== "" && id.length !== 13 ? "" : ""
+                  }`}
+                  style={{
+                    backgroundColor:
+                      id.trim() !== "" && id.length !== 13 ? "" : "initial",
+                    color: !isValid && id.trim() !== "" ? "red" : "initial",
+                  }}
+                >
+                  {!isValid && id.trim() !== "" ? "เลขบัตรผิด" : ""}
+                  {id.trim() !== "" && id.length !== 13
+                    ? "กรอกตัวเลขไม่ครบ 13 หลัก"
+                    : ""}
+                </span>
+              </React.Fragment>
             }
             sx={{
               position: "absolute",

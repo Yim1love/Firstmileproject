@@ -18,8 +18,14 @@ import { faLine } from "@fortawesome/free-brands-svg-icons";
 import { FiPhoneCall, FiMail } from "react-icons/fi";
 import { IconName } from "react-icons/ai";
 
-const Testcard = () => {
+
+
+
+
+const Testcard = ({ onAddContact }) => {
+  
   const [firstNameInputValue, setFirstNameInputValue] = useState("");
+  const [lastnameInputValue, setLastNameInputValue] = useState("");
   const [positionInputValue, setPositionNameInputValue] = useState("");
   const [affiliationInputValue, setAffiliationInputValue] = useState("");
   const [idlineInputValue, setIdlineInputValue] = useState("");
@@ -31,9 +37,14 @@ const Testcard = () => {
   const [items, setItems] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
 
+  
+  
+ 
   const addItem = () => {
+    
     if (
       firstNameInputValue.trim() !== "" &&
+      lastnameInputValue.trim() !== "" &&
       positionInputValue.trim() !== "" &&
       affiliationInputValue.trim() !== "" &&
       idlineInputValue.trim() !== "" &&
@@ -48,7 +59,8 @@ const Testcard = () => {
         ...prevItems,
         {
           firstName: firstNameInputValue,
-          lastName: positionInputValue,
+          lastName: lastnameInputValue,
+          position: positionInputValue,
           affilication: affiliationInputValue,
           idline: idlineInputValue,
           phone1: phone1InputValue,
@@ -57,8 +69,10 @@ const Testcard = () => {
           email2: email2InputValue,
           score: newScoreInputValue,
         },
+        
       ]);
       setFirstNameInputValue("");
+      setLastNameInputValue("");
       setPositionNameInputValue("");
       setAffiliationInputValue("");
       setIdlineInputValue("");
@@ -67,7 +81,24 @@ const Testcard = () => {
       setEmail1InputValue("");
       setEmail2InputValue("");
       setNewScoreInputValue(1);
+
+      const ContactData ={
+        firstName: firstNameInputValue,
+          lastName: lastnameInputValue,
+          position: positionInputValue,
+          affilication: affiliationInputValue,
+          idline: idlineInputValue,
+          phone1: phone1InputValue,
+          phone2: phone2InputValue,
+          email1: email1InputValue,
+          email2: email2InputValue,
+          score: newScoreInputValue,
+      };
+      console.log(ContactData);
+      onAddContact(ContactData);
+      
     }
+
   };
 
   const editItem = (index) => {
@@ -107,6 +138,31 @@ const Testcard = () => {
             placeholder="ชื่อ"
             value={firstNameInputValue}
             onChange={(e) => setFirstNameInputValue(e.target.value)}
+            sx={{
+              "& .MuiInputBase-input": {
+                height: "3px",
+                minWidth: "180px",
+              },
+            }}
+          />
+        </Grid>
+        <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography
+            sx={{
+              marginBottom: "0px",
+              fontSize: "12px",
+              lineHeight: "15px",
+              color: "#6A6969",
+            }}
+          >
+            นามสกุล
+          </Typography>
+          <TextField
+            id="demo-helper-text-aligned-no-helper"
+            label=""
+            placeholder="นามสกุล"
+            value={lastnameInputValue}
+            onChange={(e) => setLastNameInputValue(e.target.value)}
             sx={{
               "& .MuiInputBase-input": {
                 height: "3px",
@@ -321,6 +377,7 @@ const Testcard = () => {
         </Grid>
         <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
           <Button variant="contained" onClick={addItem}>
+            
             Add
           </Button>
         </Grid>
@@ -373,6 +430,26 @@ const Testcard = () => {
                   value={item.lastName}
                   onChange={(e) => {
                     const updatedValues = { ...item, lastName: e.target.value };
+                    setItems((prevItems) => {
+                      const updatedItems = [...prevItems];
+                      updatedItems[index] = updatedValues;
+                      return updatedItems;
+                    });
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      height: "3px",
+                      minWidth: "180px",
+                    },
+                  }}
+                />
+                <TextField
+                  id="demo-helper-text-aligned-no-helper"
+                  label=""
+                  placeholder="ตำแหน่ง"
+                  value={item.position}
+                  onChange={(e) => {
+                    const updatedValues = { ...item, position: e.target.value };
                     setItems((prevItems) => {
                       const updatedItems = [...prevItems];
                       updatedItems[index] = updatedValues;
@@ -566,6 +643,20 @@ const Testcard = () => {
                 </Typography>
                 <Typography
                   sx={{
+                    color: "#4D4D4D",
+                    fontSize: "14px",
+                    fontWeight: "700",
+                    position: "absolute",
+                    left: "70px",
+                    right: `${(item.firstName.length - 1) * 12}px`, // กำหนดความยาวของ `firstName` โดยพิจารณาความยาวแต่ละตัวอักษรเป็น 12px
+                    top: "10px",
+                    bottom: "150px",
+                  }}
+                >
+                  {item.lastName}
+                </Typography>
+                <Typography
+                  sx={{
                     color: "#777",
                     fontSize: "12px",
                     fontWeight: "700",
@@ -576,7 +667,7 @@ const Testcard = () => {
                     bottom: "129px",
                   }}
                 >
-                  {item.lastName}
+                  {item.position}
                 </Typography>
                 <Typography
                   sx={{
@@ -599,8 +690,8 @@ const Testcard = () => {
                       width: "450px",
                       height: "1px",
                       backgroundColor: "#777",
-                      position:"absolute",
-                      top:"83px",
+                      position: "absolute",
+                      top: "83px",
                     }}
                   />
                   <FontAwesomeIcon

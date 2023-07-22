@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import Validateid from "../../components/Validateid";
+
+import Getdata from "../../components/Getdata";
 
 
 
@@ -15,7 +16,7 @@ function Accounting() {
     >
       Accouting
     </Typography>
-    <Validateid/>
+    <Getdata/>
     </Box>
     
   );

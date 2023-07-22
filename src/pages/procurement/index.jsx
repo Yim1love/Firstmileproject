@@ -1,34 +1,26 @@
 import axios from "axios";
-import {
-  Typography,
-  Container,
-  Grid,
-  Box,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
+import styles from "./index.module.css";
+import { Typography, Container, Grid, Box, Checkbox } from "@mui/material";
 
 import React, { useState } from "react";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Testcard from "../testgridcard/index";
 import Testcard2 from "../testgridcard/index2";
 import MapDialog from "../testmaps/mapdialog";
-
-import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { FaCheck } from "react-icons/fa";
 import Validateid from "../../components/Validateid";
 
 function Procurement() {
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedRoll, setSelectedRoll] = useState("");
+  const [certificateFileData, setCertificateFileData] = useState(null);
+  const [pp20FileData, setPp20FileData] = useState(null);
+  const [personalIdFileData, setPersonalIdFileData] = useState(null);
+
   const [scoretell, setScoretell] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [inputAdress, setInputAdress] = useState("");
@@ -56,109 +48,131 @@ function Procurement() {
   const [putSubdistrict, setPutSubdistrict] = useState("");
   const [putPostCode, setPutPostCode] = useState("");
 
-  const [inputPosition, setInputPosition] = useState("");
-
-  const handleScoretellChange = (event) => {
-    setScoretell(event.target.value);
+  //นำเข้า testcard1
+  const [contactData, setContactData] = useState([]);
+  const handleAddContact = (newContact) => {
+    setContactData((prevData) => [...prevData, newContact]);
+  };
+  //นำเข้า testcard2
+  const [testcontactData, setTestContactData] = useState([]);
+  const handleAddTest = (newContact) => {
+    setTestContactData((prevData) => [...prevData, newContact]);
   };
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
   };
+
+ const handleFileChange = (e, fileType) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      console.log("File data:", reader.result); 
+      switch (fileType) {
+        case "certificateList":
+          setCertificateFileData(reader.result);
+          break;
+        case "pp20List":
+          setPp20FileData(reader.result);
+          break;
+        case "personalIdList":
+          setPersonalIdFileData(reader.result);
+          break;
+        default:
+          break;
+      }
+    };
+  };
+  
 
   // import axios file
-
-  const axios = require("axios");
-  const apiUrl = "http://192.168.1.102:8100/api/v1/vendor";
+  const apiUrl = "http://94.74.113.242/vendor-command-service/api/v1/vendor";
   const handlePostData = () => {
+    
+    
+    console.log("certificateFileData: ", certificateFileData);
+    console.log("pp20FileData: ", pp20FileData);
+    console.log("personalIdFileData: ", personalIdFileData);
+    if (inputValue.trim() === "") {
+      alert("กรุณากรอกชื่อร้านค้า");
+
+      return;
+    }
+    // เรียก API เพื่อตรวจสอบค่าซ้ำในฐานข้อมูล
+
     const vendorData = {
-      vendorType: "บุคคลธรรมดา",
-      type: "ร้านค้า",
-      name: "Data2",
+      vendorType: selectedRoll,
+      type: selectedType,
+      name: inputValue,
       currentAddress: {
-        houseNumber: "inputAdress",
-        moo: "inputVillageNumber",
-        buildings: "inputVillage",
-        soi: "inputSoi",
-        street: "inputRoad",
-        subDistrict: "inputSubdistrict",
-        district: "inputDistrict",
-        province: "inputProvince",
+        houseNumber: inputAdress,
+        moo: inputVillageNumber,
+        buildings: inputVillage,
+        soi: inputSoi,
+        street: inputRoad,
+        subDistrict: inputSubdistrict,
+        district: inputDistrict,
+        province: inputProvince,
         location: {
-          latitude: "string",
-          longitude: "string",
+          latitude: "1000.2222",
+          longitude: "1000.2111",
         },
-        postcode: "inputPostCode",
+        postcode: inputPostCode,
       },
-      taxId: "string",
+      taxId: "1529900724287",
       taxIdAddress: {
-        houseNumber: "string",
-        moo: "string",
-        buildings: "string",
-        soi: "string",
-        street: "string",
-        subDistrict: "string",
-        district: "string",
-        province: "string",
+        houseNumber: putAddress,
+        moo: putVillageNumber,
+        buildings: putVillage,
+        soi: putSoi,
+        street: putRoad,
+        subDistrict: putSubdistrict,
+        district: putDistrict,
+        province: putProvince,
         location: {
-          latitude: "string",
-          longitude: "string",
+          latitude: "1000.2222",
+          longitude: "1000.2222",
         },
-        postcode: "string",
+        postcode: putPostCode,
       },
-      contact: [
-        {
-          firstname: "string",
-          lastname: "string",
-          position: "string",
-          agency: "string",
-          lindId: "string",
-          telephone1: "string",
-          telephone2: "string",
-          email1: "string",
-          email2: "string",
-          score: 0,
-        },
-      ],
+      contact: contactData,
       certificateList: [
         {
-          title: null,
-          data: null,
+          title: "file1",
+          data: certificateFileData.base64,
         },
       ],
       pp20List: [
         {
-          title: null,
-          data: null,
+          title:  "file1",
+          data: pp20FileData.base64, // ข้อมูล Base64 จากไฟล์ที่อัปโหลด
         },
       ],
       personalIdList: [
         {
-          title: null,
-          data: null,
+          title:  "file1",
+          // title: personalIdFileData && personalIdFileData.name,
+          data: personalIdFileData.base64,
         },
       ],
-      bankAccountList: [
-        {
-          bankName: "string",
-          bankId: "string",
-          branchName: "string",
-          accountName: "string",
-        },
-      ],
+      bankAccountList: testcontactData,
+
       by: {
-        userId: "string",
-        username: "string",
+        userId: "f0005",
+        username: "อาสิทธิ์ พิจอมบุตร",
         modifyAt: "string",
       },
     };
+    console.log("vendorData ", vendorData);
+    // return;
     axios
       .post(apiUrl, vendorData)
       .then((response) => {
-        console.log(response.data);
+        console.log("Data posted successfully:", response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error posting data:", error);
       });
   };
 
@@ -179,89 +193,97 @@ function Procurement() {
             border: "1px solid #D9D9D9",
           }}
         >
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="ร้านค้า"
-            sx={{
-              boxSizing: "border-box",
-              position: "relative",
-              width: "90px",
-              height: "11px",
-              top: "3px",
-              left: "13px",
-              left: "1.43%",
-              right: "97.14%",
-              top: " 3.99%",
-              bottom: "95.39%",
-              transform: "translateY(-50%)",
-            }}
-          />
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="สัญญาเช่า"
-            sx={{
-              boxSizing: "border-box",
-              position: "relative",
-              width: "100px",
-              height: "11px",
-              top: "3px",
-              left: "13px",
-              left: "0.50%",
-              right: "97.14%",
-              top: " 3.99%",
-              bottom: "95.39%",
-              transform: "translateY(-50%)",
-            }}
-          />
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="ผู้รับเหมา"
-            sx={{
-              boxSizing: "border-box",
-              position: "relative",
-              width: "100px",
-              height: "11px",
-              top: "3px",
-              left: "13px",
-              left: "0%",
-              right: "97.14%",
-              top: " 3.99%",
-              bottom: "95.39%",
-              transform: "translateY(-50%)",
-            }}
-          />
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div>
+              <Checkbox
+                id="ร้านค้า"
+                name="vendorType"
+                value="ร้านค้า"
+                checked={selectedType === "ร้านค้า"}
+                onChange={(e) => setSelectedType(e.target.value)}
+              />
+              <label htmlFor="ร้านค้า">ร้านค้า</label>
+            </div>
+            <div>
+              <Checkbox
+                id="สัญญาเช่า"
+                name="vendorType"
+                value="สัญญาเช่า"
+                checked={selectedType === "สัญญาเช่า"}
+                onChange={(e) => setSelectedType(e.target.value)}
+              />
+              <label htmlFor="สัญญาเช่า">สัญญาเช่า</label>
+            </div>
+            <div>
+              <Checkbox
+                id="ผู้รับเหมา"
+                name="vendorType"
+                value="ผู้รับเหมา"
+                checked={selectedType === "ผู้รับเหมา"}
+                onChange={(e) => setSelectedType(e.target.value)}
+              />
+              <label htmlFor="ผู้รับเหมา">ผู้รับเหมา</label>
+            </div>
+          </div>
 
-          <Box
-            sx={{
-              boxSizing: "border-box",
-              position: "absolute",
-              left: "22.75%",
-              right: "44.7%",
-              top: "17.84%",
-              bottom: "72.05%",
-              background: "#FFFFFF",
-              border: "1px solid #CBCBCB",
-              borderRadius: "2px",
-            }}
-          >
-            {" "}
-            <input
-              id="my-input"
-              name="my-input"
-              value={inputValue}
-              onChange={handleInputChange}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                padding: "8px",
+          <Box>
+            <Typography
+              sx={{
                 boxSizing: "border-box",
+                position: "absolute",
+                fontFamily: "Inter",
+                fontStyle: "normal",
+                fontSize: "9px",
+                lineHeight: "17px",
+                color: "#333333",
+                "&::after": {
+                  content: "'*'",
+                  position: "relative",
+                  top: "-0.2em",
+                  marginRight: "0.2em",
+                  color: "red",
+                },
+                top: "12.84%",
+                right: "75.4%",
+              }}
+            >
+              ชื่อ
+            </Typography>
+            <TextField
+              id="demo-helper-text-aligned-no-helper"
+              label=""
+              placeholder=""
+              value={inputValue}
+              onChange={(event) => setInputValue(event.target.value)}
+              sx={{
+                boxSizing: "border-box",
+                position: "absolute",
+                left: "22.75%",
+                right: "44.7%",
+                top: "17.84%",
+                bottom: "72.05%",
+                background: "#FFFFFF",
+
+                borderRadius: "2px",
+
+                borderRadius: "2px",
+                "& .MuiInputBase-input": {
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                  outline: "none",
+                  padding: "7px",
+                  boxSizing: "border-box",
+                },
               }}
             />
           </Box>
-          <Box
-            className="drop บริษัท"
+
+          <Select
+            name="vendorType"
+            id="vendorType"
+            value={selectedRoll}
+            onChange={(e) => setSelectedRoll(e.target.value)}
             sx={{
               boxSizing: "border-box",
               position: "absolute",
@@ -272,55 +294,20 @@ function Procurement() {
               background: "#FFFFFF",
               border: "1px solid #CBCBCB",
               borderRadius: "2px",
-              display: "flex",
-              justifyContent: "space-between", // จัดตำแหน่งของข้อความและ Icon
-              alignItems: "center",
-              padding: "0 8px", // เพิ่มการเว้นระยะห่างด้านซ้ายและขวาของ Box
+              padding: "0 8px",
             }}
+            displayEmpty
           >
-            <Typography
-              sx={{
-                position: "relative",
-                fontFamily: "Inter",
-                fontSize: "17px",
-                lineHeight: "17px",
-                color: "#333333",
-                marginLeft: "5px",
-              }}
-            >
-              บริษัทจำกัด
-            </Typography>
-            <ExpandMoreIcon
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            />
-          </Box>
+            <MenuItem value="" disabled>
+              VenderType
+            </MenuItem>
+            <MenuItem value="บุคคลธรรมดา">บุคคลธรรมดา</MenuItem>
+            <MenuItem value="บริษัทจำกัด">บริษัทจำกัด</MenuItem>
+            <MenuItem value="บริษัทจำกัด (มหาชน)">บริษัทจำกัด (มหาชน)</MenuItem>
+            <MenuItem value="หจก.">หจก.</MenuItem>
+            <MenuItem value="หจก. สามัญนิติบุคคล">หจก. สามัญนิติบุคคล</MenuItem>
+          </Select>
 
-          <Typography
-            sx={{
-              boxSizing: "border-box",
-              position: "absolute",
-              fontFamily: "Inter",
-              fontStyle: "normal",
-              fontSize: "9px",
-              lineHeight: "17px",
-              color: "#333333",
-              "&::after": {
-                content: "'*'",
-                position: "relative",
-                top: "-0.2em",
-                marginRight: "0.2em",
-                color: "red",
-              },
-              top: "12.84%",
-              right: "75.4%",
-            }}
-          >
-            ชื่อ
-          </Typography>
           <Typography
             sx={{
               position: "relative",
@@ -1374,7 +1361,13 @@ function Procurement() {
                   border: "1px solid #CBCBCB",
                   borderRadius: "2px",
                 }}
-              ></Box>
+              >
+                <input
+                  type="file"
+                  onChange={(e) => handleFileChange(e, "pp20List")}
+                />
+                {pp20FileData && (<p>ไฟล์ที่เลือก: {pp20FileData.name}</p>)}
+              </Box>
             </Box>
           </>
           <>
@@ -1410,7 +1403,15 @@ function Procurement() {
                   border: "1px solid #CBCBCB",
                   borderRadius: "2px",
                 }}
-              ></Box>
+              >
+                <input
+                  type="file"
+                  onChange={(e) => handleFileChange(e, "personalIdList")}
+                />
+                {personalIdFileData && (
+                  <p>ไฟล์ที่เลือก: {personalIdFileData.name}</p>
+                )}
+              </Box>
             </Box>
           </>
           <>
@@ -1446,7 +1447,15 @@ function Procurement() {
                   border: "1px solid #CBCBCB",
                   borderRadius: "2px",
                 }}
-              ></Box>
+              >
+                <input
+                  type="file"
+                  onChange={(e) => handleFileChange(e, "certificateList")}
+                />
+                {certificateFileData && (
+                  <p>ไฟล์ที่เลือก: {certificateFileData.name}</p>
+                )}
+              </Box>
             </Box>
           </>
         </Container>
@@ -1467,280 +1476,7 @@ function Procurement() {
           }}
         >
           <Typography>การติดต่อ</Typography>
-          <Testcard />
-          {/* <Box>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="flex-start"
-              spacing={1}
-              mt={2}
-            >
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  ชื่อ
-                </Typography>
-                <TextField
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  placeholder="ชื่อ-นามสกุล"
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  ตำแหน่ง
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  สังกัด
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  ID Line
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  เบอร์โทรติดต่อ 1
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  เบอร์โทรติดต่อ 2
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  E-Mail 1
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    marginBottom: "0px",
-                    fontSize: "12px",
-                    lineHeight: "15px",
-                    color: "#6A6969",
-                  }}
-                >
-                  E-mail 2
-                </Typography>
-                <TextField
-                  helperText=" "
-                  id="demo-helper-text-aligned-no-helper"
-                  label=""
-                  sx={{
-                    "& .MuiInputBase-input": {
-                      height: "3px",
-                      minWidth: "180px",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid
-                container
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Grid item>
-                  <Typography
-                    sx={{
-                      marginBottom: "0px",
-                      fontSize: "12px",
-                      lineHeight: "15px",
-                      color: "#6A6969",
-                      marginLeft: "43px",
-                    }}
-                  >
-                    ระดับความยากในการคุย
-                  </Typography>
-                  <FormControl>
-                    <Select
-                      labelId="demo-simple-select-helper-label"
-                      id="demo-simple-select-helper"
-                      value={scoretell}
-                      // label="Age"
-                      onChange={handleScoretellChange}
-                      sx={{
-                        width: "80px",
-                        height: "30px",
-                        marginLeft: "43px",
-                        marginTop: "0px",
-                      }}
-                    >
-                      <MenuItem value="">
-                        <em>0</em>
-                      </MenuItem>
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
-                      <MenuItem value={4}>4</MenuItem>
-                      <MenuItem value={5}>5</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item sx={{ display: "flex" }}>
-                  <Button
-                    sx={{
-                      width: "61px",
-                      height: "30px",
-                      marginTop: "10px",
-
-                      border: "1px solid #E1E1E1",
-                      borderRadius: "2px",
-                      boxShadow: "0px 2px 2px #CBCBCB",
-                    }}
-                  >
-                    <Typography>เพิ่ม</Typography>
-                  </Button>
-
-                  <Button
-                    sx={{
-                      width: "35px",
-                      minWidth: "0px",
-                      height: "30px",
-                      marginTop: "10px",
-
-                      borderRadius: "2px",
-                      boxShadow: "0px 2px 2px #CBCBCB",
-                      marginRight: "34px",
-                      bgcolor: "#8CC0DE",
-                    }}
-                  >
-                    <AddCircleIcon
-                      sx={{
-                        color: "white",
-                      }}
-                    />
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Box> */}
+          <Testcard onAddContact={handleAddContact} />
         </Container>
 
         <Container
@@ -1759,7 +1495,14 @@ function Procurement() {
           }}
         >
           <Typography>การจ่ายเงิน</Typography>
-          <Testcard2 />
+          <Testcard2 addtestcard2={handleAddTest} />
+          <button
+            className={`${styles.button} ${styles.acceptbutton} ${styles.flexContainer}`}
+            onClick={handlePostData}
+          >
+            <FaCheck className={styles.icon} />
+            ยอมรับ
+          </button>
         </Container>
       </Grid>
     </Grid>
@@ -1767,3 +1510,66 @@ function Procurement() {
 }
 
 export default Procurement;
+
+// vendorType: "บุคคลธรรมดา",
+// type: "ร้านค้า",
+// name: "ร้านยิมออนไลน4",
+// currentAddress: {
+//   houseNumber: "inputAdress",
+//   moo: "inputVillageNumber",
+//   buildings: "inputVillage",
+//   soi: "inputSoi",
+//   street: "inputRoad",
+//   subDistrict: "inputSubdistrict",
+//   district: "inputDistrict",
+//   province: "inputProvince",
+//   location: {
+//     latitude: "",
+//     longitude: "",
+//   },
+//   postcode: "inputPostCode",
+// },
+// taxId: "",
+// taxIdAddress: {
+//   houseNumber: "putAddress",
+//   moo: "putVillageNumber",
+//   buildings: "putVillage",
+//   soi: "putSoi",
+//   street: "putRoad",
+//   subDistrict: "putSubdistrict",
+//   district: "putDistrict",
+//   province: "putProvince",
+//   location: {
+//     latitude: "",
+//     longitude: "",
+//   },
+//   postcode: "putPostCode",
+// },
+// contact: contactData,
+// certificateList: [
+//   {
+//     title: "",
+//     data: "",
+//   },
+// ],
+// pp20List: [
+//   {
+//     title: "",
+//     data: "",
+//   },
+// ],
+// personalIdList: [
+//   {
+//     title: "",
+//     data: "",
+//   },
+// ],
+// bankAccountList: testcontactData,
+// bankAccountList: [
+//   {
+//     bankName: "string",
+//     bankId: "string",
+//     branchName: "string",
+//     accountName: "string",
+//   },
+// ],

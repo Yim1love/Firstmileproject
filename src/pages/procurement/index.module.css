@@ -1,0 +1,28 @@
+
+.flexContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+.button {
+    width: 96px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .acceptbutton {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .icon {
+    width: 35px;
+    height: 30px;
+   
+  }

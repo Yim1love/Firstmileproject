@@ -13,7 +13,7 @@ import {
 import { Edit, Delete, Save } from "@mui/icons-material";
 import kasikornLogo from "../testgridcard/picture/kasikorn.png";
 
-const Testcard2 = () => {
+const Testcard2 = ({ addtestcard2 }) => {
   const [firstNameInputValue, setFirstNameInputValue] = useState("");
   const [newScoreInputValue, setNewScoreInputValue] = useState(1);
   const [numbankInputValue, setNumbankInputValue] = useState("");
@@ -43,6 +43,15 @@ const Testcard2 = () => {
       setNewScoreInputValue(1);
       setNumbankInputValue("");
       setNamebankInputValue("");
+
+      const Testcard2Contact = {
+        firstName: firstNameInputValue,
+        score: newScoreInputValue,
+        numbank: numbankInputValue,
+        namebank: namebankInputValue,
+      };
+      console.log(Testcard2Contact);
+      addtestcard2(Testcard2Contact);
     }
   };
 
