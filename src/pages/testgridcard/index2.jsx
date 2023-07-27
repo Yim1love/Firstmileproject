@@ -11,7 +11,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Edit, Delete, Save } from "@mui/icons-material";
-import kasikornLogo from "../testgridcard/picture/kasikorn.png";
+
+import AddIcon from "@mui/icons-material/Add";
 
 const Testcard2 = ({ addtestcard2 }) => {
   const [firstNameInputValue, setFirstNameInputValue] = useState("");
@@ -45,10 +46,10 @@ const Testcard2 = ({ addtestcard2 }) => {
       setNamebankInputValue("");
 
       const Testcard2Contact = {
-        firstName: firstNameInputValue,
-        score: newScoreInputValue,
-        numbank: numbankInputValue,
-        namebank: namebankInputValue,
+        branchName: firstNameInputValue,
+        bankName: newScoreInputValue,
+        bankId: numbankInputValue,
+        accountName: namebankInputValue,
       };
       console.log(Testcard2Contact);
       addtestcard2(Testcard2Contact);
@@ -74,7 +75,11 @@ const Testcard2 = ({ addtestcard2 }) => {
 
   return (
     <div>
-      <Grid container spacing={2} alignItems="center" sx={{ flexWrap: "wrap" }}>
+      <Grid container
+        spacing={2}
+        alignItems="center"
+        justifyContent="flex-end"
+        sx={{ marginLeft: "20px" }}>
         <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
             sx={{
@@ -90,8 +95,11 @@ const Testcard2 = ({ addtestcard2 }) => {
             value={newScoreInputValue}
             onChange={(e) => setNewScoreInputValue(parseInt(e.target.value))}
             sx={{
+               width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiSelect-select": {
-                height: "3px",
+                height: "10px",
                 minWidth: "180px",
               },
             }}
@@ -122,6 +130,9 @@ const Testcard2 = ({ addtestcard2 }) => {
             value={firstNameInputValue}
             onChange={(e) => setFirstNameInputValue(e.target.value)}
             sx={{
+               width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -147,6 +158,9 @@ const Testcard2 = ({ addtestcard2 }) => {
             value={numbankInputValue}
             onChange={(e) => setNumbankInputValue(e.target.value)}
             sx={{
+               width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -172,6 +186,9 @@ const Testcard2 = ({ addtestcard2 }) => {
             value={namebankInputValue}
             onChange={(e) => setNamebankInputValue(e.target.value)}
             sx={{
+               width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -180,8 +197,21 @@ const Testcard2 = ({ addtestcard2 }) => {
           />
         </Grid>
 
-        <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
-          <Button variant="contained" onClick={addItem}>
+        <Grid item xs={3.6} sx={{ display: "flex", flexDirection: "column" }}>
+          <Button variant="contained"
+            onClick={addItem}
+            sx={{
+              width: "96px",
+              height: "30px",
+              flexShrink: 0,
+              backgroundColor: "#8CC0DE",
+              borderRadius: "5px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#ffffff",
+            }}
+            startIcon={<AddIcon sx={{ fontSize: 20 }} />}>
             Add
           </Button>
         </Grid>
@@ -191,6 +221,7 @@ const Testcard2 = ({ addtestcard2 }) => {
         <Card
           key={index}
           sx={{
+            marginLeft:"35px",
             marginTop: "10px",
             display: "flex",
             flexDirection: "column",

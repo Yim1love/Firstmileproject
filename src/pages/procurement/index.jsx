@@ -1,6 +1,15 @@
 import axios from "axios";
 import styles from "./index.module.css";
-import { Typography, Container, Grid, Box, Checkbox } from "@mui/material";
+import {
+  Typography,
+  Container,
+  Grid,
+  Box,
+  Checkbox,
+  Button,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import React, { useState } from "react";
 
@@ -63,12 +72,17 @@ function Procurement() {
     setInputValue(e.target.value);
   };
 
- const handleFileChange = (e, fileType) => {
+  const handleDeleteData = () => {
+    // ตัวอย่างการลบข้อมูล
+    // คุณสามารถเขียนโค้ดในส่วนนี้เพื่อลบข้อมูลตามที่คุณต้องการ
+  };
+
+  const handleFileChange = (e, fileType) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log("File data:", reader.result); 
+      console.log("File data:", reader.result);
       switch (fileType) {
         case "certificateList":
           setCertificateFileData(reader.result);
@@ -84,16 +98,13 @@ function Procurement() {
       }
     };
   };
-  
 
   // import axios file
   const apiUrl = "http://94.74.113.242/vendor-command-service/api/v1/vendor";
   const handlePostData = () => {
-    
-    
-    console.log("certificateFileData: ", certificateFileData);
-    console.log("pp20FileData: ", pp20FileData);
-    console.log("personalIdFileData: ", personalIdFileData);
+    // console.log("contactFileData: ", contactData);
+    // console.log("pp20FileData: ", pp20FileData);
+    // console.log("personalIdFileData: ", personalIdFileData);
     if (inputValue.trim() === "") {
       alert("กรุณากรอกชื่อร้านค้า");
 
@@ -139,19 +150,19 @@ function Procurement() {
       contact: contactData,
       certificateList: [
         {
-          title: "file1",
+          title: certificateFileData.name,
           data: certificateFileData.base64,
         },
       ],
       pp20List: [
         {
-          title:  "file1",
+          title: pp20FileData.name,
           data: pp20FileData.base64, // ข้อมูล Base64 จากไฟล์ที่อัปโหลด
         },
       ],
       personalIdList: [
         {
-          title:  "file1",
+          title: personalIdFileData.name,
           // title: personalIdFileData && personalIdFileData.name,
           data: personalIdFileData.base64,
         },
@@ -165,7 +176,7 @@ function Procurement() {
       },
     };
     console.log("vendorData ", vendorData);
-    // return;
+    return;
     axios
       .post(apiUrl, vendorData)
       .then((response) => {
@@ -1366,7 +1377,7 @@ function Procurement() {
                   type="file"
                   onChange={(e) => handleFileChange(e, "pp20List")}
                 />
-                {pp20FileData && (<p>ไฟล์ที่เลือก: {pp20FileData.name}</p>)}
+                {pp20FileData && <p>ไฟล์ที่เลือก: {pp20FileData.name}</p>}
               </Box>
             </Box>
           </>
@@ -1475,7 +1486,6 @@ function Procurement() {
             border: "1px solid #D9D9D9",
           }}
         >
-          <Typography>การติดต่อ</Typography>
           <Testcard onAddContact={handleAddContact} />
         </Container>
 
@@ -1496,13 +1506,56 @@ function Procurement() {
         >
           <Typography>การจ่ายเงิน</Typography>
           <Testcard2 addtestcard2={handleAddTest} />
-          <button
-            className={`${styles.button} ${styles.acceptbutton} ${styles.flexContainer}`}
-            onClick={handlePostData}
+        </Container>
+        <Container
+          sx={{
+            display: "flex",
+
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            height: "1550px",
+            minHeight: "100vh",
+            marginBottom:"50px",
+            marginTop:"10px",
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={handleDeleteData}
+            sx={{
+              width: "96px",
+              height: "30px",
+              flexShrink: 0,
+              backgroundColor: "#FF0000",
+              borderRadius: "5px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#ffffff",
+            }}
+            startIcon={<DeleteIcon sx={{ fontSize: 20 }} />}
           >
-            <FaCheck className={styles.icon} />
-            ยอมรับ
-          </button>
+            Delete
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handlePostData}
+            sx={{
+              marginLeft:"1050px",
+              width: "96px",
+              height: "30px",
+              flexShrink: 0,
+              backgroundColor: "#39C815",
+              borderRadius: "5px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#ffffff",
+            }}
+            startIcon={<AddIcon sx={{ fontSize: 20 }} />}
+          >
+            Add
+          </Button>
         </Container>
       </Grid>
     </Grid>

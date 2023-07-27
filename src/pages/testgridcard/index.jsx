@@ -10,7 +10,8 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { Edit, Delete, Save } from "@mui/icons-material";
+import { Edit, Delete, Save, Margin } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLine } from "@fortawesome/free-brands-svg-icons";
@@ -18,12 +19,7 @@ import { faLine } from "@fortawesome/free-brands-svg-icons";
 import { FiPhoneCall, FiMail } from "react-icons/fi";
 import { IconName } from "react-icons/ai";
 
-
-
-
-
 const Testcard = ({ onAddContact }) => {
-  
   const [firstNameInputValue, setFirstNameInputValue] = useState("");
   const [lastnameInputValue, setLastNameInputValue] = useState("");
   const [positionInputValue, setPositionNameInputValue] = useState("");
@@ -37,11 +33,7 @@ const Testcard = ({ onAddContact }) => {
   const [items, setItems] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
 
-  
-  
- 
   const addItem = () => {
-    
     if (
       firstNameInputValue.trim() !== "" &&
       lastnameInputValue.trim() !== "" &&
@@ -69,7 +61,6 @@ const Testcard = ({ onAddContact }) => {
           email2: email2InputValue,
           score: newScoreInputValue,
         },
-        
       ]);
       setFirstNameInputValue("");
       setLastNameInputValue("");
@@ -82,23 +73,21 @@ const Testcard = ({ onAddContact }) => {
       setEmail2InputValue("");
       setNewScoreInputValue(1);
 
-      const ContactData ={
-        firstName: firstNameInputValue,
-          lastName: lastnameInputValue,
-          position: positionInputValue,
-          affilication: affiliationInputValue,
-          idline: idlineInputValue,
-          phone1: phone1InputValue,
-          phone2: phone2InputValue,
-          email1: email1InputValue,
-          email2: email2InputValue,
-          score: newScoreInputValue,
+      const ContactData = {
+        firstname: firstNameInputValue,
+        lastname: lastnameInputValue,
+        position: positionInputValue,
+        agency: affiliationInputValue,
+        lindId: idlineInputValue,
+        telephone1: phone1InputValue,
+        telephone2: phone2InputValue,
+        email1: email1InputValue,
+        email2: email2InputValue,
+        score: newScoreInputValue,
       };
       console.log(ContactData);
       onAddContact(ContactData);
-      
     }
-
   };
 
   const editItem = (index) => {
@@ -120,7 +109,14 @@ const Testcard = ({ onAddContact }) => {
 
   return (
     <div>
-      <Grid container spacing={2} alignItems="center" sx={{ flexWrap: "wrap" }}>
+      <Typography>การติดต่อ</Typography>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        justifyContent="flex-end"
+        sx={{ marginLeft: "15px" }}
+      >
         <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
             sx={{
@@ -139,6 +135,9 @@ const Testcard = ({ onAddContact }) => {
             value={firstNameInputValue}
             onChange={(e) => setFirstNameInputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -164,6 +163,9 @@ const Testcard = ({ onAddContact }) => {
             value={lastnameInputValue}
             onChange={(e) => setLastNameInputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -190,6 +192,9 @@ const Testcard = ({ onAddContact }) => {
             value={positionInputValue}
             onChange={(e) => setPositionNameInputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -215,6 +220,9 @@ const Testcard = ({ onAddContact }) => {
             value={affiliationInputValue}
             onChange={(e) => setAffiliationInputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -240,6 +248,9 @@ const Testcard = ({ onAddContact }) => {
             value={idlineInputValue}
             onChange={(e) => setIdlineInputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -265,6 +276,9 @@ const Testcard = ({ onAddContact }) => {
             value={phone1InputValue}
             onChange={(e) => setPhone1InputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -290,6 +304,9 @@ const Testcard = ({ onAddContact }) => {
             value={phone2InputValue}
             onChange={(e) => setPhone2InputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -315,6 +332,9 @@ const Testcard = ({ onAddContact }) => {
             value={email1InputValue}
             onChange={(e) => setEmail1InputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -340,6 +360,9 @@ const Testcard = ({ onAddContact }) => {
             value={email2InputValue}
             onChange={(e) => setEmail2InputValue(e.target.value)}
             sx={{
+              width: "200px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiInputBase-input": {
                 height: "3px",
                 minWidth: "180px",
@@ -362,6 +385,9 @@ const Testcard = ({ onAddContact }) => {
             value={newScoreInputValue}
             onChange={(e) => setNewScoreInputValue(parseInt(e.target.value))}
             sx={{
+              width: "80px",
+              height: "30px",
+              flexShrink: 0,
               "& .MuiSelect-select": {
                 height: "3px",
                 minWidth: "180px",
@@ -375,9 +401,23 @@ const Testcard = ({ onAddContact }) => {
             <MenuItem value={5}>5</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={6} sx={{ display: "flex", flexDirection: "column" }}>
-          <Button variant="contained" onClick={addItem}>
-            
+        <Grid item xs={3.6} sx={{ display: "flex", flexDirection: "column" }}>
+          <Button
+            variant="contained"
+            onClick={addItem}
+            sx={{
+              width: "96px",
+              height: "30px",
+              flexShrink: 0,
+              backgroundColor: "#8CC0DE",
+              borderRadius: "5px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#ffffff",
+            }}
+            startIcon={<AddIcon sx={{ fontSize: 20 }} />}
+          >
             Add
           </Button>
         </Grid>
@@ -387,12 +427,13 @@ const Testcard = ({ onAddContact }) => {
         <Card
           key={index}
           sx={{
+            marginLeft:"33px",
             marginTop: "10px",
             display: "flex",
             flexDirection: "column",
             flexGrow: 1,
             minWidth: "200px", // กำหนดขนาดขั้นต่ำสำหรับ Card
-            maxWidth: "500px",
+            maxWidth: "450px",
             maxHeight: "500px",
             minHeight: "200px", // กำหนดขนาดสูงสุดสำหรับ Card
           }}
